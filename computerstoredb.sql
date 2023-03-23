@@ -334,3 +334,23 @@ FROM pc
 JOIN product on product.model = pc.model
 WHERE maker IN (SELECT maker FROM product WHERE type = 'printer')
 GROUP BY maker
+
+--Exercise: 28 (2)
+
+--Using Product table, find out the number of makers who produce only one model.
+
+SELECT COUNT(*)
+FROM (SELECT DISTINCT Maker
+FROM Product
+GROUP BY maker
+HAVING COUNT(model) = 1) AS t
+
+--Exercise: 35 (2)
+
+--Find models in the Product table consisting either of digits only or Latin letters (A-Z, case insensitive) only.
+--Result set: model, type.
+
+SELECT model, type
+FROM product
+WHERE model NOT LIKE '%[^0-9]%'
+OR model NOT LIKE '%[^A-Z]%'
